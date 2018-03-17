@@ -31,9 +31,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
   Widget _buildTextComposer() {
     return new IconTheme(
-      data: new IconThemeData(color: Theme
-          .of(context)
-          .accentColor),
+      data: new IconThemeData(color: Theme.of(context).accentColor),
       child: new Container(
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
         child: new Row(
@@ -48,25 +46,24 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                 },
                 onSubmitted: _handleSubmitted,
                 decoration:
-                new InputDecoration.collapsed(hintText: "Send a message"),
+                    new InputDecoration.collapsed(hintText: "Send a message"),
               ),
             ),
             new Container(
                 margin: new EdgeInsets.symmetric(horizontal: 4.0),
-                child: Theme
-                    .of(context)
-                    .platform == TargetPlatform.iOS ?
-                new CupertinoButton(
-                  child: new Text("Send"),
-                  onPressed: _isComposing
-                      ? () => _handleSubmitted(_textController.text)
-                      : null,) :
-                new IconButton(
-                  icon: new Icon(Icons.send),
-                  onPressed: _isComposing ?
-                      () => _handleSubmitted(_textController.text) : null,
-                )
-            ),
+                child: Theme.of(context).platform == TargetPlatform.iOS
+                    ? new CupertinoButton(
+                        child: new Text("Send"),
+                        onPressed: _isComposing
+                            ? () => _handleSubmitted(_textController.text)
+                            : null,
+                      )
+                    : new IconButton(
+                        icon: new Icon(Icons.send),
+                        onPressed: _isComposing
+                            ? () => _handleSubmitted(_textController.text)
+                            : null,
+                      )),
           ],
         ),
       ),
@@ -97,9 +94,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
       appBar: new AppBar(
           title: new Text("Friendlychat"),
           elevation:
-          Theme
-              .of(context)
-              .platform == TargetPlatform.iOS ? 0.0 : 4.0),
+              Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0),
       body: new Container(
           child: new Column(
             children: <Widget>[
@@ -113,21 +108,18 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
               ),
               new Divider(height: 1.0),
               new Container(
-                decoration: new BoxDecoration(color: Theme
-                    .of(context)
-                    .cardColor),
+                decoration:
+                    new BoxDecoration(color: Theme.of(context).cardColor),
                 child: _buildTextComposer(),
               ),
             ],
           ),
-          decoration: Theme
-              .of(context)
-              .platform == TargetPlatform.iOS
+          decoration: Theme.of(context).platform == TargetPlatform.iOS
               ? new BoxDecoration(
-            border: new Border(
-              top: new BorderSide(color: Colors.grey[200]),
-            ),
-          )
+                  border: new Border(
+                    top: new BorderSide(color: Colors.grey[200]),
+                  ),
+                )
               : null),
     );
   }
@@ -138,7 +130,6 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
       message.animationController.dispose();
     super.dispose();
   }
-
 }
 
 const String _name = "Your Name";
@@ -168,10 +159,7 @@ class ChatMessage extends StatelessWidget {
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    new Text(_name, style: Theme
-                        .of(context)
-                        .textTheme
-                        .subhead),
+                    new Text(_name, style: Theme.of(context).textTheme.subhead),
                     new Container(
                       margin: const EdgeInsets.only(top: 5.0),
                       child: new Text(text),
@@ -181,8 +169,7 @@ class ChatMessage extends StatelessWidget {
               ),
             ],
           ),
-        )
-    );
+        ));
   }
 }
 
