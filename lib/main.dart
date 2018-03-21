@@ -24,7 +24,6 @@ class DemoScreen extends StatefulWidget {
 }
 
 class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
-
   final random = new Random();
   AnimationController animation;
   BarTween tween;
