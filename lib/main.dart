@@ -1,8 +1,8 @@
 import 'dart:math';
-import 'dart:ui' show lerpDouble;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'bar.dart';
 
 void main() => runApp(new DemoApp());
 
@@ -25,11 +25,8 @@ class DemoScreen extends StatefulWidget {
 class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
 
   final random = new Random();
-  int dataSet = 50;
   AnimationController animation;
-  double startHeight;   // Strike one.
-  double currentHeight; // Strike two.
-  double endHeight;     // Strike three. Refactor.
+  BarTween tween;
 
   @override
   void initState() {
@@ -37,19 +34,8 @@ class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
     animation = new AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
-    )
-      ..addListener(() {
-        setState(() {
-          currentHeight = lerpDouble( // Strike one.
-            startHeight,
-            endHeight,
-            animation.value,
-          );
-        });
-      });
-    startHeight = 0.0;                // Strike two.
-    currentHeight = 0.0;
-    endHeight = dataSet.toDouble();
+    );
+    tween = new BarTween(new Bar(0.0), new Bar(50.0));
     animation.forward();
   }
 
@@ -61,9 +47,10 @@ class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
 
   void changeData() {
     setState(() {
-      startHeight = currentHeight;    // Strike three. Refactor.
-      dataSet = random.nextInt(100);
-      endHeight = dataSet.toDouble();
+      tween = new BarTween(
+        tween.evaluate(animation),
+        new Bar(100.0 * random.nextDouble()),
+      );
       animation.forward(from: 0.0);
     });
   }
@@ -74,7 +61,7 @@ class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
       body: new Center(
         child: new CustomPaint(
           size: new Size(200.0, 100.0),
-          painter: new BarChartPainter(currentHeight),
+          painter: new BarChartPainter(tween.animate(animation)),
         ),
       ),
       floatingActionButton: new FloatingActionButton(
@@ -83,31 +70,4 @@ class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
       ),
     );
   }
-}
-
-class BarChartPainter extends CustomPainter {
-  static const barWidth = 10.0;
-
-  BarChartPainter(this.barHeight);
-
-  final double barHeight;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = new Paint()
-      ..color = Colors.blue[400]
-      ..style = PaintingStyle.fill;
-    canvas.drawRect(
-      new Rect.fromLTWH(
-        (size.width - barWidth) / 2.0,
-        size.height - barHeight,
-        barWidth,
-        barHeight,
-      ),
-      paint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(BarChartPainter old) => barHeight != old.barHeight;
 }
