@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'bar.dart';
 
 void main() => runApp(new DemoApp());
@@ -35,7 +36,7 @@ class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    tween = new BarTween(new Bar(0.0), new Bar(50.0));
+    tween = new BarTween(new Bar.empty(), new Bar.random(random));
     animation.forward();
   }
 
@@ -47,10 +48,7 @@ class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
 
   void changeData() {
     setState(() {
-      tween = new BarTween(
-        tween.evaluate(animation),
-        new Bar(100.0 * random.nextDouble()),
-      );
+      tween = new BarTween(tween.evaluate(animation), new Bar.random(random));
       animation.forward(from: 0.0);
     });
   }
