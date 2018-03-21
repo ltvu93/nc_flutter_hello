@@ -24,9 +24,10 @@ class DemoScreen extends StatefulWidget {
 }
 
 class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
+  static const size = const Size(200.0, 100.0);
   final random = new Random();
   AnimationController animation;
-  BarTween tween;
+  BarChartTween tween;
 
   @override
   void initState() {
@@ -35,7 +36,10 @@ class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    tween = new BarTween(new Bar.empty(), new Bar.random(random));
+    tween = new BarChartTween(
+      new BarChart.empty(size),
+      new BarChart.random(size, random),
+    );
     animation.forward();
   }
 
@@ -47,7 +51,10 @@ class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
 
   void changeData() {
     setState(() {
-      tween = new BarTween(tween.evaluate(animation), new Bar.random(random));
+      tween = new BarChartTween(
+        tween.evaluate(animation),
+        new BarChart.random(size, random),
+      );
       animation.forward(from: 0.0);
     });
   }
@@ -57,7 +64,7 @@ class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
     return new Scaffold(
       body: new Center(
         child: new CustomPaint(
-          size: new Size(200.0, 100.0),
+          size: size,
           painter: new BarChartPainter(tween.animate(animation)),
         ),
       ),
