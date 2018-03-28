@@ -1,76 +1,52 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
-import 'bar.dart';
+void main() => runApp(new MainApp());
 
-void main() => runApp(new DemoApp());
-
-class DemoApp extends StatelessWidget {
+class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      home: new DemoScreen(),
+      home: new MainScreen(),
     );
   }
 }
 
-class DemoScreen extends StatefulWidget {
+class MainScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new DemoScreenState();
+    return new MainScreenState();
   }
 }
 
-class DemoScreenState extends State<DemoScreen> with TickerProviderStateMixin {
-  static const size = const Size(200.0, 100.0);
-  final random = new Random();
-  AnimationController animation;
-  BarChartTween tween;
-
+class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    animation = new AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    tween = new BarChartTween(
-      new BarChart.empty(size),
-      new BarChart.random(size, random),
-    );
-    animation.forward();
   }
 
   @override
   void dispose() {
-    animation.dispose();
     super.dispose();
-  }
-
-  void changeData() {
-    setState(() {
-      tween = new BarChartTween(
-        tween.evaluate(animation),
-        new BarChart.random(size, random),
-      );
-      animation.forward(from: 0.0);
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: new Center(
-        child: new CustomPaint(
-          size: size,
-          painter: new BarChartPainter(tween.animate(animation)),
-        ),
+      appBar: new AppBar(
+        title: new Text('SHOP'),
+        centerTitle: true,
+        leading: new IconButton(
+            icon: new Image.asset('images/menu_icon.png'),
+            tooltip: 'Air it',
+            onPressed: null),
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.search), onPressed: null),
+          new IconButton(
+              icon: new Icon(Icons.notifications_active), onPressed: null),
+        ],
       ),
-      floatingActionButton: new FloatingActionButton(
-        child: new Icon(Icons.refresh),
-        onPressed: changeData,
+      body: new Center(
+        child: new Text('Hello'),
       ),
     );
   }
