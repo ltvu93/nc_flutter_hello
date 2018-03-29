@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'which_screen.dart';
-import 'how_screen.dart';
 
-void main() => runApp(new WhichScreen());
+void main() => runApp(new MainApp());
 
 class MainApp extends StatelessWidget {
   @override
@@ -39,6 +38,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        elevation: 0.0,
         title: new Text('SHOP'),
         centerTitle: true,
         leading: new IconButton(
@@ -105,13 +105,13 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 new Expanded(
                   child: new Text(
                     'Create request',
-                    style: new TextStyle(fontSize: 12.0),
+                    style: new TextStyle(fontSize: 13.9, color: Colors.white),
                   ),
                 ),
                 new Expanded(
                   child: new Text(
                     'Traveller’s Recommendations',
-                    style: new TextStyle(fontSize: 12.0),
+                    style: new TextStyle(fontSize: 12.3, color: Colors.white),
                   ),
                 ),
               ],

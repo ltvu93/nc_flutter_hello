@@ -67,7 +67,10 @@ flutter:
     - images/1.5x/back_icon.png
     - images/2.0x/back_icon.png
     - images/3.0x/back_icon.png
-
+    - images/indicator_connect.png
+    - images/1.5x/indicator_connect.png
+    - images/2.0x/indicator_connect.png
+    - images/3.0x/indicator_connect.png
     - images/bargain_booking.png
     - images/3.0x/bargain_booking.png
     - images/how_icon_1.png
