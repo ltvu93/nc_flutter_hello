@@ -63,6 +63,31 @@ flutter:
     - images/1.5x/more_icon.png
     - images/2.0x/more_icon.png
     - images/3.0x/more_icon.png
+    - images/back_icon.png
+    - images/1.5x/back_icon.png
+    - images/2.0x/back_icon.png
+    - images/3.0x/back_icon.png
+
+    - images/bargain_booking.png
+    - images/3.0x/bargain_booking.png
+    - images/how_icon_1.png
+    - images/3.0x/how_icon_1.png
+    - images/how_icon_2.png
+    - images/3.0x/how_icon_2.png
+    - images/instant_booking.png
+    - images/3.0x/instant_booking.png
+    - images/item_small.png
+    - images/3.0x/item_small.png
+    - images/shoe_pic.png
+    - images/3.0x/shoe_pic.png
+    - images/when_icon_2.png
+    - images/3.0x/when_icon_2.png
+    - images/where_icon_2.png
+    - images/3.0x/where_icon_2.png
+    - images/which_icon_1.png
+    - images/3.0x/which_icon_1.png
+    - images/which_icon_2.png
+    - images/3.0x/which_icon_2.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

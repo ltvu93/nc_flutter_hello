@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'which_screen.dart';
+import 'how_screen.dart';
 
-void main() => runApp(new MainApp());
+void main() => runApp(new WhichScreen());
 
 class MainApp extends StatelessWidget {
   @override
@@ -40,9 +42,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         title: new Text('SHOP'),
         centerTitle: true,
         leading: new IconButton(
-            icon: new Image.asset('images/menu_icon.png'),
-            tooltip: 'Air it',
-            onPressed: null),
+            icon: new Image.asset('images/menu_icon.png'), onPressed: null),
         actions: <Widget>[
           new IconButton(
               icon: new Image.asset('images/search_icon.png'), onPressed: null),
@@ -53,7 +53,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       body: new ListView(
         children: <Widget>[
           searchWidget,
-          requestWidget,
+          requestWidget(context),
           adWidget,
           productFilter
         ],
@@ -77,7 +77,6 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               icon: new Image.asset('images/search_bar_icon.png'),
               onPressed: null),
           new Flexible(
-            //new
             child: new TextField(
               controller: new TextEditingController(),
               onSubmitted: null,
@@ -94,40 +93,60 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     ),
   );
 
-  Widget requestWidget = new Container(
-    color: const Color(0xffe04d25),
-    child: new Column(
-      children: <Widget>[
-        new Container(
-          padding: const EdgeInsets.only(top: 13.0, left: 9.7, right: 9.7),
-          child: new Row(
-            children: <Widget>[
-              new Expanded(
-                  child: new Text('Create request',
-                      style: new TextStyle(fontSize: 12.0))),
-              new Expanded(
-                  child: new Text('Traveller’s Recommendations',
-                      style: new TextStyle(fontSize: 12.0)))
-            ],
+  Widget requestWidget(BuildContext context) {
+    return new Container(
+      color: const Color(0xffe04d25),
+      child: new Column(
+        children: <Widget>[
+          new Container(
+            padding: const EdgeInsets.only(top: 13.0, left: 9.7, right: 9.7),
+            child: new Row(
+              children: <Widget>[
+                new Expanded(
+                  child: new Text(
+                    'Create request',
+                    style: new TextStyle(fontSize: 12.0),
+                  ),
+                ),
+                new Expanded(
+                  child: new Text(
+                    'Traveller’s Recommendations',
+                    style: new TextStyle(fontSize: 12.0),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        new Container(
-          height: 188.3,
-          child: new ListView(
-            scrollDirection: Axis.horizontal,
-            children: new List.generate(10, (int index) {
-              return new Image.asset(
-                'images/item_bg.png',
-              );
-            }),
+          new Container(
+            height: 188.3,
+            child: new ListView(
+              scrollDirection: Axis.horizontal,
+              children: new List.generate(10, (int index) {
+                return new IconButton(
+                    iconSize: 155.3,
+                    padding: const EdgeInsets.all(0.0),
+                    icon: new Image.asset(
+                      'images/item_bg.png',
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                          builder: (context) => new WhichScreen(),
+                        ),
+                      );
+                      print('hello');
+                    });
+              }),
+            ),
           ),
-        ),
-        new Container(
-          height: 10.0,
-        )
-      ],
-    ),
-  );
+          new Container(
+            height: 10.0,
+          )
+        ],
+      ),
+    );
+  }
 
   Widget adWidget = new Container(
     child: new Image.asset('images/banner.png'),
@@ -144,12 +163,17 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           child: new Row(
             children: <Widget>[
               new Expanded(
-                  child: new Text('Category Recommendation',
-                      style: new TextStyle(fontSize: 13.9))),
+                child: new Text(
+                  'Category Recommendation',
+                  style: new TextStyle(fontSize: 13.9),
+                ),
+              ),
               new Text(
                 'Show more',
                 style: new TextStyle(
-                    fontSize: 12.7, color: const Color(0xff95959e)),
+                  fontSize: 12.7,
+                  color: const Color(0xff95959e),
+                ),
               )
             ],
           ),
@@ -159,7 +183,9 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               left: 9.7, right: 9.7, top: 14.7, bottom: 9.7),
           decoration: new BoxDecoration(
             color: const Color(0xffd0d0d0),
-            borderRadius: const BorderRadius.all(const Radius.circular(2.7)),
+            borderRadius: const BorderRadius.all(
+              const Radius.circular(2.7),
+            ),
           ),
           child: new Row(
             children: <Widget>[
@@ -172,8 +198,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 child: new Text('Electronics & Computers'),
               ),
               new Container(
-                padding: const EdgeInsets.only(
-                    left: 12.7, right: 14.9),
+                padding: const EdgeInsets.only(left: 12.7, right: 14.9),
                 child: new Image.asset('images/more_icon.png'),
               ),
             ],
