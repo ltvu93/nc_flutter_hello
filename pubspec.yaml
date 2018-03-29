@@ -43,6 +43,26 @@ flutter:
     - images/1.5x/banner.png
     - images/2.0x/banner.png
     - images/3.0x/banner.png
+    - images/search_bar_icon.png
+    - images/1.5x/search_bar_icon.png
+    - images/2.0x/search_bar_icon.png
+    - images/3.0x/search_bar_icon.png
+    - images/search_bar_qr.png
+    - images/1.5x/search_bar_qr.png
+    - images/2.0x/search_bar_qr.png
+    - images/3.0x/search_bar_qr.png
+    - images/item_bg.png
+    - images/1.5x/item_bg.png
+    - images/2.0x/item_bg.png
+    - images/3.0x/item_bg.png
+    - images/computer_icon.png
+    - images/1.5x/computer_icon.png
+    - images/2.0x/computer_icon.png
+    - images/3.0x/computer_icon.png
+    - images/more_icon.png
+    - images/1.5x/more_icon.png
+    - images/2.0x/more_icon.png
+    - images/3.0x/more_icon.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 
