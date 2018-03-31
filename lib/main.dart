@@ -43,6 +43,13 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     animation = new Tween<double>(begin: 100.0, end: 300.0).animate(curve)
       ..addListener(() {
         setState(() {});
+      })
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          animationController.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          animationController.forward();
+        }
       });
     animationController.forward();
   }
