@@ -66,9 +66,23 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       alignment: Alignment.center,
       color: Colors.red,
       child: new Container(
-        width: animation.value,
-        height: animation.value,
-        color: Colors.black,
+        alignment: Alignment.center,
+        height: 400.0,
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Container(
+              width: 100.0,
+              height: 100.0,
+              color: Colors.black,
+            ),
+            new Container(
+              width: animation.value,
+              height: animation.value,
+              color: Colors.black,
+            )
+          ],
+        ),
       ),
     );
   }
