@@ -35,11 +35,12 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       duration: new Duration(milliseconds: 700),
       vsync: this,
     );
-    animation =
-        new Tween<double>(begin: 100.0, end: 300.0).animate(animationController)
-          ..addListener(() {
-            setState(() {});
-          });
+    final CurvedAnimation curve =
+        new CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn);
+    animation = new Tween<double>(begin: 100.0, end: 300.0).animate(curve)
+      ..addListener(() {
+        setState(() {});
+      });
     animationController.forward();
   }
 
