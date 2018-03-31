@@ -29,67 +29,73 @@ class HowStateScreen extends State<HowScreen> {
             height: 33.3,
             color: const Color(0xffe04d25),
             alignment: Alignment.center,
-            child: new Text(
-              "Choose your Service",
-              style: new TextStyle(color: Colors.white, fontSize: 16.0),
+            child: new BottomUpWidget(
+              child: new Text(
+                "Choose your Service",
+                style: new TextStyle(color: Colors.white, fontSize: 16.0),
+              ),
             ),
           ),
-          new Container(
-            height: 78.0,
-            color: const Color(0xffe4e5e4),
+          new BottomUpWidget(
             child: new Container(
               height: 78.0,
-              margin: const EdgeInsets.only(
-                  left: 12.3, right: 98.7, top: 23.7, bottom: 27.0),
-              child: new Text(
-                'Please choose what service you want to use to purchase and deliver your item',
-                style: new TextStyle(
-                  color: const Color(0xff858585),
+              color: const Color(0xffe4e5e4),
+              child: new Container(
+                height: 78.0,
+                margin: const EdgeInsets.only(
+                    left: 12.3, right: 98.7, top: 23.7, bottom: 27.0),
+                child: new Text(
+                  'Please choose what service you want to use to purchase and deliver your item',
+                  style: new TextStyle(
+                    color: const Color(0xff858585),
+                  ),
                 ),
               ),
             ),
           ),
-          new Container(
-            height: 166.7,
-            color: Colors.white,
-            child: new Row(
-              children: <Widget>[
-                new Container(
-                  padding: const EdgeInsets.only(left: 25.3, right: 23.0),
-                  child: new Image.asset('images/bargain_booking.png',
-                      width: 60.3, height: 60.3),
-                ),
-                new Expanded(
-                  child: new Container(
-                    padding: const EdgeInsets.only(right: 21.3),
-                    child: new Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        new Container(
-                          alignment: Alignment.centerLeft,
-                          child: new Text(
-                            'Bargain Booking',
-                            style: new TextStyle(
-                              color: const Color(0xff757575),
-                              fontWeight: FontWeight.bold,
+          new BottomUpWidget(
+            child: new Container(
+              height: 166.7,
+              color: Colors.white,
+              child: new Row(
+                children: <Widget>[
+                  new Container(
+                    padding: const EdgeInsets.only(left: 25.3, right: 23.0),
+                    child: new Image.asset('images/bargain_booking.png',
+                        width: 60.3, height: 60.3),
+                  ),
+                  new Expanded(
+                    child: new Container(
+                      padding: const EdgeInsets.only(right: 21.3),
+                      child: new Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Container(
+                            alignment: Alignment.centerLeft,
+                            child: new Text(
+                              'Bargain Booking',
+                              style: new TextStyle(
+                                color: const Color(0xff757575),
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        new Container(
-                          alignment: Alignment.centerLeft,
-                          child: new Text(
-                            'With bargain bookintvg, traveller will offers with reasonable price which allow you to choose your best and trustest traveller.',
-                            textAlign: TextAlign.justify,
-                            style: new TextStyle(
-                              color: const Color(0xff757575),
+                          new Container(
+                            alignment: Alignment.centerLeft,
+                            child: new Text(
+                              'With bargain bookintvg, traveller will offers with reasonable price which allow you to choose your best and trustest traveller.',
+                              textAlign: TextAlign.justify,
+                              style: new TextStyle(
+                                color: const Color(0xff757575),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           new Expanded(
@@ -148,20 +154,152 @@ class HowStateScreen extends State<HowScreen> {
               ],
             ),
           ),
-          new GestureDetector(
-            onTap: () {},
-            child: new Container(
-              alignment: Alignment.center,
-              color: const Color(0xffe04d25),
-              height: 47.2,
-              child: new Text(
-                'NEXT',
-                style: new TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold),
-              ),
+          new NextButtonWidget(),
+        ],
+      ),
+    );
+  }
+}
+
+class NextButtonWidget extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new NextButtonStateWidget();
+  }
+}
+
+class NextButtonStateWidget extends State<NextButtonWidget>
+    with TickerProviderStateMixin {
+  AnimationController animationController;
+  Animation<double> alphaAnimation;
+  Animation<double> heightAnimation;
+
+  NextButtonStateWidget();
+
+  @override
+  void initState() {
+    super.initState();
+
+    animationController = new AnimationController(
+      duration: new Duration(milliseconds: 1000),
+      vsync: this,
+    );
+
+    alphaAnimation = new Tween<double>(begin: 0.0, end: 1.0).animate(
+      new CurvedAnimation(
+        parent: animationController,
+        curve: new Interval(
+          0.3,
+          1.0,
+          curve: Curves.easeInOut,
+        ),
+      ),
+    );
+    heightAnimation = new Tween<double>(begin: 0.0, end: 47.2).animate(
+      new CurvedAnimation(
+        parent: animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    animationController.addListener(() {
+      setState(() {});
+    });
+    animationController.forward(from: 0.0);
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Opacity(
+      opacity: alphaAnimation.value,
+      child: new Container(
+        child: new GestureDetector(
+          onTap: () {},
+          child: new Container(
+            alignment: Alignment.center,
+            color: const Color(0xffe04d25),
+            height: heightAnimation.value,
+            child: new Text(
+              'NEXT',
+              style: new TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
-        ],
+        ),
+      ),
+    );
+  }
+}
+
+class BottomUpWidget extends StatefulWidget {
+  final Widget child;
+  final int delay;
+
+  BottomUpWidget({this.child, this.delay = 0});
+
+  @override
+  State<StatefulWidget> createState() {
+    return new BottomUpStateWidget(child, delay);
+  }
+}
+
+class BottomUpStateWidget extends State<BottomUpWidget>
+    with TickerProviderStateMixin {
+  AnimationController animationController;
+  Animation<double> alphaAnimation;
+  Animation<double> marginAnimation;
+  Widget child;
+  int delay;
+
+  BottomUpStateWidget(this.child, this.delay);
+
+  @override
+  void initState() {
+    super.initState();
+
+    animationController = new AnimationController(
+      duration: new Duration(milliseconds: 700 + delay),
+      vsync: this,
+    );
+
+    alphaAnimation = new Tween<double>(begin: 0.0, end: 1.0).animate(
+      new CurvedAnimation(
+        parent: animationController,
+        curve: Curves.ease,
+      ),
+    );
+    marginAnimation = new Tween<double>(begin: 10.0, end: 0.0).animate(
+      new CurvedAnimation(
+        parent: animationController,
+        curve: new Interval(0.0, 1.0),
+      ),
+    );
+
+    animationController.addListener(() {
+      setState(() {});
+    });
+    animationController.forward(from: 0.0);
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Opacity(
+      opacity: alphaAnimation.value,
+      child: new Container(
+        margin: new EdgeInsets.only(top: marginAnimation.value),
+        child: child,
       ),
     );
   }

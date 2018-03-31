@@ -1,7 +1,11 @@
 import 'dart:math';
+import 'dart:core';
+import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
 import 'home_screen.dart';
+import 'which_screen.dart';
+import 'how_screen.dart';
 
 void main() => runApp(new MainApp());
 
@@ -13,7 +17,7 @@ class MainApp extends StatelessWidget {
         primaryColor: new Color(0xffee613a),
         accentColor: new Color(0xffe04d25),
       ),
-      home: new MainScreen(),
+      home: new WhichScreen(),
     );
   }
 }
@@ -32,25 +36,28 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
     animationController = new AnimationController(
-      duration: new Duration(milliseconds: 700),
+      duration: new Duration(milliseconds: 1000),
       vsync: this,
     );
     final CurvedAnimation curve = new CurvedAnimation(
       parent: animationController,
-      curve: Curves.fastOutSlowIn,
+      curve: Curves.bounceIn,
     );
-    animation = new Tween<double>(begin: 100.0, end: 300.0).animate(curve)
+    Tween<double> tween = new Tween<double>(begin: 10.0, end: 100.0);
+
+    animation = tween.animate(curve)
       ..addListener(() {
         setState(() {});
-      })
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          animationController.reverse();
-        } else if (status == AnimationStatus.dismissed) {
-          animationController.forward();
-        }
       });
+    animation.addStatusListener((state) {
+      if(state == AnimationStatus.completed) {
+        tween.begin = tween.evaluate(animation);
+        tween.end = 0.0;
+        animationController.reverse();
+      }
+    });
     animationController.forward();
   }
 
@@ -60,27 +67,33 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  Widget _crossFade(double offset) {
+    return new Container(
+      margin: new EdgeInsets.only(top: offset),
+      width: 100.0,
+      height: 100.0,
+      color: Colors.white,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Container(
-      alignment: Alignment.center,
       color: Colors.red,
       child: new Container(
-        alignment: Alignment.center,
-        height: 400.0,
         child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Container(
               width: 100.0,
               height: 100.0,
-              color: Colors.black,
+              color: Colors.yellow,
             ),
+            _crossFade(animation.value),
             new Container(
-              width: animation.value,
-              height: animation.value,
-              color: Colors.black,
-            )
+              width: 100.0,
+              height: 100.0,
+              color: Colors.green,
+            ),
           ],
         ),
       ),

@@ -111,7 +111,6 @@ class HomeScreenState extends State<HomeScreen> {
                           builder: (context) => new WhichScreen(),
                         ),
                       );
-                      print('hello');
                     });
               }),
             ),

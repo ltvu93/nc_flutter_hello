@@ -14,6 +14,7 @@ class RequestIndicatorStateWidget extends State<RequestIndicatorWidget> {
       color: const Color(0xffee613a),
       padding: const EdgeInsets.symmetric(horizontal: 10.3, vertical: 10.0),
       child: new Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           new Stack(
             alignment: Alignment.center,
@@ -37,8 +38,6 @@ class RequestIndicatorStateWidget extends State<RequestIndicatorWidget> {
           ),
           new Image.asset(
             'images/how_icon_2.png',
-            width: 47.0,
-            height: 47.0,
           ),
           new Image.asset(
             'images/indicator_connect.png',
@@ -48,8 +47,6 @@ class RequestIndicatorStateWidget extends State<RequestIndicatorWidget> {
           ),
           new Image.asset(
             'images/where_icon_2.png',
-            width: 47.0,
-            height: 47.0,
           ),
           new Image.asset(
             'images/indicator_connect.png',
@@ -59,8 +56,6 @@ class RequestIndicatorStateWidget extends State<RequestIndicatorWidget> {
           ),
           new Image.asset(
             'images/when_icon_2.png',
-            width: 47.0,
-            height: 47.0,
           ),
         ],
       ),
