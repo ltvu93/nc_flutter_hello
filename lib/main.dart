@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:ui' show lerpDouble;
+import 'package:flutter/animation.dart';
 import 'home_screen.dart';
 
 void main() => runApp(new MainApp());
@@ -26,24 +26,21 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   AnimationController animationController;
-  double size;
+  Animation<double> animation;
 
   @override
   void initState() {
     super.initState();
-
     animationController = new AnimationController(
       duration: new Duration(milliseconds: 700),
       vsync: this,
-    )
-      ..addListener(() {
-        setState(() {
-          size = lerpDouble(
-              100, 400, animationController.value
-          );
-        });
-      });
-    animationController.forward(from: 0.0);
+    );
+    animation =
+        new Tween<double>(begin: 100.0, end: 300.0).animate(animationController)
+          ..addListener(() {
+            setState(() {});
+          });
+    animationController.forward();
   }
 
   @override
@@ -58,8 +55,8 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       alignment: Alignment.center,
       color: Colors.red,
       child: new Container(
-        width: size,
-        height: size,
+        width: animation.value,
+        height: animation.value,
         color: Colors.black,
       ),
     );
