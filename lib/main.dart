@@ -7,6 +7,7 @@ import 'home_screen.dart';
 import 'which_screen.dart';
 import 'how_screen.dart';
 import 'display_anim.dart';
+import 'searchbar_anim.dart';
 
 void main() => runApp(new MainApp());
 
@@ -18,7 +19,7 @@ class MainApp extends StatelessWidget {
         primaryColor: new Color(0xffee613a),
         accentColor: new Color(0xffe04d25),
       ),
-      home: new WhichScreen(),
+      home: new MainScreen(),
     );
   }
 }
@@ -31,22 +32,20 @@ class MainScreen extends StatefulWidget {
 }
 
 class MainScreenState extends State<MainScreen> {
-
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      color: Colors.red,
-      child: new Container(
+    return new Scaffold(
+      body: new Container(
+        color: Colors.white,
         child: new Column(
           children: <Widget>[
             new Container(
-              width: 100.0,
               height: 100.0,
               color: Colors.yellow,
             ),
             new DisplayAnimWidget(),
+            new SearchBarAnimWidget(),
             new Container(
-              width: 100.0,
               height: 100.0,
               color: Colors.green,
             ),

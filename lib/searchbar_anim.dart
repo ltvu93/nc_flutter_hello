@@ -3,14 +3,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
 
-class DisplayAnimWidget extends StatefulWidget {
+class SearchBarAnimWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new DisplayAnimState();
+    return new SearchBarAnimState();
   }
 }
 
-class DisplayAnimState extends State<DisplayAnimWidget> with TickerProviderStateMixin {
+class SearchBarAnimState extends State<SearchBarAnimWidget> with TickerProviderStateMixin {
   AnimationController animationController;
   Animation<double> opacity;
   Animation<double> positionDown;
@@ -60,9 +60,36 @@ class DisplayAnimState extends State<DisplayAnimWidget> with TickerProviderState
             child: new Opacity(
               opacity: opacity.value,
               child: new Container(
-                width: MediaQuery.of(context).size.width,
-                height: 100.0,
-                color: Colors.black,
+                color: const Color(0xffee613a),
+                child: new Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 36.7,
+                  decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.all(const Radius.circular(2.7)),
+                  ),
+                  margin: new EdgeInsets.symmetric(
+                      vertical: 10.3, horizontal: 9.7),
+                  child: new Row(
+                    children: <Widget>[
+                      new IconButton(
+                          icon: new Image.asset('images/search_bar_icon.png'),
+                          onPressed: null),
+                      new Flexible(
+                        child: new TextField(
+                          controller: new TextEditingController(),
+                          onSubmitted: null,
+                          decoration: new InputDecoration.collapsed(
+                              hintText: "Browse or past your product link from web"),
+                        ),
+                      ),
+                      new IconButton(
+                        icon: new Image.asset('images/search_bar_qr.png'),
+                        onPressed: null,
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
