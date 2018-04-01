@@ -91,10 +91,18 @@ flutter:
     - images/3.0x/item_small.png
     - images/shoe_pic.png
     - images/3.0x/shoe_pic.png
+    - images/when_icon_1.png
+    - images/1.5x/when_icon_1.png
+    - images/2.0x/when_icon_1.png
+    - images/3.0x/when_icon_1.png
     - images/when_icon_2.png
     - images/1.5x/when_icon_2.png
     - images/2.0x/when_icon_2.png
     - images/3.0x/when_icon_2.png
+    - images/where_icon_1.png
+    - images/1.5x/where_icon_1.png
+    - images/2.0x/where_icon_1.png
+    - images/3.0x/where_icon_1.png
     - images/where_icon_2.png
     - images/1.5x/where_icon_2.png
     - images/2.0x/where_icon_2.png

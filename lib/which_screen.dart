@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'request_indicator.dart';
 import 'how_screen.dart';
 import 'display_anim.dart';
+import 'tab_indicator.dart';
 
 class WhichScreen extends StatefulWidget {
   @override
@@ -11,6 +13,18 @@ class WhichScreen extends StatefulWidget {
 }
 
 class WhichStateScreen extends State<WhichScreen> {
+  bool actionChangeTab = false;
+
+  @override
+  void initState() {
+    super.initState();
+    new Timer(new Duration(seconds: 1), () {
+      setState(() {
+        actionChangeTab = true;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -29,7 +43,10 @@ class WhichStateScreen extends State<WhichScreen> {
           new Expanded(
             child: new ListView(
               children: <Widget>[
-                new RequestIndicatorWidget(),
+                new TabIndicator(
+                  screenSize: MediaQuery.of(context).size,
+                  action: actionChangeTab,
+                ),
                 new SearchWidget(),
                 new Container(
                   child: new Column(
@@ -144,7 +161,6 @@ class WhichStateScreen extends State<WhichScreen> {
       ),
     );
   }
-
 }
 
 class ShoeWidget extends StatefulWidget {
@@ -422,12 +438,14 @@ class NextButtonStateWidget extends State<NextButtonWidget>
       child: new Container(
         child: new GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              new MaterialPageRoute(
-                builder: (context) => new HowScreen(),
-              ),
-            );
+            print('tap');
+            setState(() {});
+//            Navigator.push(
+//              context,
+//              new MaterialPageRoute(
+//                builder: (context) => new HowScreen(),
+//              ),
+//            );
           },
           child: new Container(
             alignment: Alignment.center,

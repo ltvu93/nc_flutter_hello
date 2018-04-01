@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
         primaryColor: new Color(0xffee613a),
         accentColor: new Color(0xffe04d25),
       ),
-      home: new TabIndicator(),
+      home: new WhichScreen(),
     );
   }
 }
@@ -35,6 +35,12 @@ class MainScreen extends StatefulWidget {
 class MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
+    return new Scaffold(
+      body: demoAnim(),
+    );
+  }
+
+  Widget demoAnim() {
     return new Scaffold(
       body: new Container(
         color: Colors.white,
