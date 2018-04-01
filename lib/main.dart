@@ -8,6 +8,7 @@ import 'which_screen.dart';
 import 'how_screen.dart';
 import 'display_anim.dart';
 import 'searchbar_anim.dart';
+import 'tab_indicator.dart';
 
 void main() => runApp(new MainApp());
 
@@ -19,7 +20,7 @@ class MainApp extends StatelessWidget {
         primaryColor: new Color(0xffee613a),
         accentColor: new Color(0xffe04d25),
       ),
-      home: new MainScreen(),
+      home: new TabIndicator(),
     );
   }
 }
