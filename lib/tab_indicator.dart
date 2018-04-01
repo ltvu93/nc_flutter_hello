@@ -15,6 +15,7 @@ class _TabIndicatorState extends State<TabIndicator>
   AnimationController animationController;
   Animation<double> opacity;
   Animation<double> dxTargetAnim;
+  Animation<double> dxEntryAnim;
 
   @override
   void initState() {
@@ -24,9 +25,11 @@ class _TabIndicatorState extends State<TabIndicator>
       vsync: this,
     );
     opacity = new Tween<double>(begin: 0.2, end: 1.0)
-        .animate(intervalCurved(0.0, 1.0, Curves.easeInOut));
-    dxTargetAnim = new Tween<double>(begin: 0.0, end: 200.0)
+        .animate(intervalCurved(0.0, 1.0, Curves.bounceIn));
+    dxTargetAnim = new Tween<double>(begin: 50.0, end: 200.0)
         .animate(intervalCurved(0.0, 1.0));
+    dxEntryAnim = new Tween<double>(begin: 50.0, end: 200.0)
+        .animate(intervalCurved(0.5, 1.0));
 
     animationController
       ..addListener(() {
@@ -53,7 +56,10 @@ class _TabIndicatorState extends State<TabIndicator>
             MediaQuery.of(context).size.width,
             100.0,
           ),
-          painter: new _TabIndicationPainter(dxTarget: dxTargetAnim.value),
+          painter: new _TabIndicationPainter(
+            dxTarget: dxTargetAnim.value,
+            dxEntry: dxEntryAnim.value,
+          ),
         ),
       ),
       floatingActionButton: new FloatingActionButton(
@@ -63,7 +69,7 @@ class _TabIndicatorState extends State<TabIndicator>
     );
   }
 
-  CurvedAnimation intervalCurved(begin, end, [curve = Curves.ease]) {
+  CurvedAnimation intervalCurved(begin, end, [curve = Curves.easeInOut]) {
     return new CurvedAnimation(
       parent: animationController,
       curve: new Interval(begin, end, curve: curve),
@@ -74,8 +80,15 @@ class _TabIndicatorState extends State<TabIndicator>
 class _TabIndicationPainter extends CustomPainter {
   Paint painter;
   final double dxTarget;
+  final double dxEntry;
+  final double radius;
+  final double dy;
 
-  _TabIndicationPainter({this.dxTarget}) {
+  _TabIndicationPainter(
+      {this.dxTarget = 200.0,
+      this.dxEntry = 50.0,
+      this.radius = 50.0,
+      this.dy = 50.0}) {
     painter = new Paint()
       ..color = Colors.blue[400]
       ..style = PaintingStyle.fill;
@@ -83,10 +96,8 @@ class _TabIndicationPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Offset entry = new Offset(50.0, 50.0);
-    Offset target = new Offset(dxTarget + entry.dx, 50.0);
-    double radius = entry.dx;
-    double distance = target.dx;
+    Offset entry = new Offset(dxEntry, dy);
+    Offset target = new Offset(dxTarget, dy);
 
     Path path = new Path();
     path.addArc(
