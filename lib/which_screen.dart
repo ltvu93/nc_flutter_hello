@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'request_indicator.dart';
-
 import 'how_screen.dart';
+import 'display_anim.dart';
 
 class WhichScreen extends StatefulWidget {
   @override
@@ -145,36 +145,6 @@ class WhichStateScreen extends State<WhichScreen> {
     );
   }
 
-  Widget searchWidget = new Container(
-    height: 61.75,
-    color: const Color(0xffee613a),
-    child: new Container(
-      decoration: new BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.all(const Radius.circular(2.7)),
-      ),
-      margin: const EdgeInsets.symmetric(vertical: 10.3, horizontal: 9.7),
-      child: new Row(
-        children: <Widget>[
-          new IconButton(
-              icon: new Image.asset('images/search_bar_icon.png'),
-              onPressed: null),
-          new Flexible(
-            child: new TextField(
-              controller: new TextEditingController(),
-              onSubmitted: null,
-              decoration: new InputDecoration.collapsed(
-                  hintText: "Browse or past your product link from web"),
-            ),
-          ),
-          new IconButton(
-            icon: new Image.asset('images/search_bar_qr.png'),
-            onPressed: null,
-          )
-        ],
-      ),
-    ),
-  );
 }
 
 class ShoeWidget extends StatefulWidget {

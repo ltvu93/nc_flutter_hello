@@ -6,6 +6,7 @@ import 'package:flutter/animation.dart';
 import 'home_screen.dart';
 import 'which_screen.dart';
 import 'how_screen.dart';
+import 'display_anim.dart';
 
 void main() => runApp(new MainApp());
 
@@ -29,52 +30,7 @@ class MainScreen extends StatefulWidget {
   }
 }
 
-class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
-  AnimationController animationController;
-  Animation<double> animation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    animationController = new AnimationController(
-      duration: new Duration(milliseconds: 1000),
-      vsync: this,
-    );
-    final CurvedAnimation curve = new CurvedAnimation(
-      parent: animationController,
-      curve: Curves.bounceIn,
-    );
-    Tween<double> tween = new Tween<double>(begin: 10.0, end: 100.0);
-
-    animation = tween.animate(curve)
-      ..addListener(() {
-        setState(() {});
-      });
-    animation.addStatusListener((state) {
-      if(state == AnimationStatus.completed) {
-        tween.begin = tween.evaluate(animation);
-        tween.end = 0.0;
-        animationController.reverse();
-      }
-    });
-    animationController.forward();
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
-
-  Widget _crossFade(double offset) {
-    return new Container(
-      margin: new EdgeInsets.only(top: offset),
-      width: 100.0,
-      height: 100.0,
-      color: Colors.white,
-    );
-  }
+class MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +44,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               height: 100.0,
               color: Colors.yellow,
             ),
-            _crossFade(animation.value),
+            new DisplayAnimWidget(),
             new Container(
               width: 100.0,
               height: 100.0,
