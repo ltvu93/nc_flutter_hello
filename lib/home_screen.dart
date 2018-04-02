@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'which_screen.dart';
 import 'main.dart';
+import 'app_bar_title_anim.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -15,15 +16,21 @@ class HomeScreenState extends State<HomeScreen> {
     return new Scaffold(
       appBar: new AppBar(
         elevation: 0.0,
-        title: new Text('SHOP'),
+        title: new AppBarTitleAnim(new Text('SHOP')),
         centerTitle: true,
         leading: new IconButton(
-            icon: new Image.asset('images/menu_icon.png'), onPressed: null),
+            iconSize: 56.0,
+            icon: new Image.asset('images/menu_icon.png'),
+            onPressed: null),
         actions: <Widget>[
           new IconButton(
-              icon: new Image.asset('images/search_icon.png'), onPressed: null),
+              iconSize: 46.0,
+              icon: new Image.asset('images/search_icon.png'),
+              onPressed: null),
           new IconButton(
-              icon: new Image.asset('images/notify_icon.png'), onPressed: null),
+              iconSize: 46.0,
+              icon: new Image.asset('images/notify_icon.png'),
+              onPressed: null),
         ],
       ),
       body: new ListView(
@@ -104,6 +111,7 @@ class HomeScreenState extends State<HomeScreen> {
                   child: new Material(
                     color: Colors.transparent,
                     child: new IconButton(
+                      alignment: Alignment.center,
                       iconSize: 155.3,
                       padding: const EdgeInsets.all(0.0),
                       icon: new Image.asset(

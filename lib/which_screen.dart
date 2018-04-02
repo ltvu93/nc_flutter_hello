@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'how_screen.dart';
 import 'tab_indicator.dart';
+import 'app_bar_title_anim.dart';
 
 class WhichScreen extends StatefulWidget {
   final int itemIndex;
@@ -20,7 +21,7 @@ class WhichStateScreen extends State<WhichScreen> {
     return new Scaffold(
       appBar: new AppBar(
         elevation: 0.0,
-        title: new Text('WHICH?'),
+        title: new AppBarTitleAnim(new Text('WHICH?')),
         centerTitle: true,
         leading: new IconButton(
             icon: new Image.asset('images/back_icon.png'),

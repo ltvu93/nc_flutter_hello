@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'tab_indicator.dart';
+import 'app_bar_title_anim.dart';
 
 class HowScreen extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class HowStateScreen extends State<HowScreen> {
     return new Scaffold(
       appBar: new AppBar(
         elevation: 0.0,
-        title: new Text('HOW?'),
+        title: new AppBarTitleAnim(new Text('HOW?')),
         centerTitle: true,
         leading: new IconButton(
             icon: new Image.asset('images/back_icon.png'),
