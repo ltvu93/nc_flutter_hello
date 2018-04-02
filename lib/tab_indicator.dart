@@ -89,7 +89,7 @@ class _TabIndicatorState extends State<TabIndicator>
 
   void setUpAnimation(int fromIndex, int toIndex) {
     animationController = new AnimationController(
-      duration: new Duration(milliseconds: 1000),
+      duration: new Duration(milliseconds: 700),
       vsync: this,
     );
 
