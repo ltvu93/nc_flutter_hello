@@ -16,11 +16,6 @@ class WhichStateScreen extends State<WhichScreen> {
   int tabFromIndex = 0;
   int tabToIndex = 1;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void nextTabFunction() {
     setState(() {
       tabFromIndex = 0;
@@ -443,20 +438,20 @@ class NextButtonStateWidget extends State<NextButtonWidget>
   Widget build(BuildContext context) {
     return new Opacity(
       opacity: alphaAnimation.value,
-      child: new Container(
-        child: new GestureDetector(
+      child: new Material(
+        color: const Color(0xffe04d25),
+        child: new InkWell(
           onTap: () {
             widget.nextTabFunction();
-            Navigator.push(
-              context,
-              new MaterialPageRoute(
-                builder: (context) => new HowScreen(),
-              ),
-            );
+//            Navigator.push(
+//              context,
+//              new MaterialPageRoute(
+//                builder: (context) => new HowScreen(),
+//              ),
+//            );
           },
           child: new Container(
             alignment: Alignment.center,
-            color: const Color(0xffe04d25),
             height: heightAnimation.value,
             child: new Text(
               'NEXT',
