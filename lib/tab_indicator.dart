@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 
 class TabIndicator extends StatefulWidget {
   final Size screenSize;
-  final bool action;
+  final int fromIndex;
+  final int toIndex;
 
-  TabIndicator({Key key, @required this.screenSize, this.action})
+  TabIndicator(
+      {Key key, @required this.screenSize, this.fromIndex, this.toIndex})
       : super(key: key);
 
   @override
@@ -58,7 +60,11 @@ class _TabIndicatorState extends State<TabIndicator>
   @override
   void didUpdateWidget(TabIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.action) actionAnim();
+    if (oldWidget.fromIndex != widget.fromIndex ||
+        oldWidget.toIndex != widget.toIndex) {
+      setUpAnimation(widget.fromIndex, widget.toIndex);
+    }
+    actionAnim();
   }
 
   @override

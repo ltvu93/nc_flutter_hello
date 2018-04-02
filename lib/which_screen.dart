@@ -13,15 +13,18 @@ class WhichScreen extends StatefulWidget {
 }
 
 class WhichStateScreen extends State<WhichScreen> {
-  bool actionChangeTab = false;
+  int tabFromIndex = 0;
+  int tabToIndex = 1;
 
   @override
   void initState() {
     super.initState();
-    new Timer(new Duration(seconds: 1), () {
-      setState(() {
-        actionChangeTab = true;
-      });
+  }
+
+  void nextTabFunction() {
+    setState(() {
+      tabFromIndex = 0;
+      tabToIndex = 1;
     });
   }
 
@@ -45,7 +48,8 @@ class WhichStateScreen extends State<WhichScreen> {
               children: <Widget>[
                 new TabIndicator(
                   screenSize: MediaQuery.of(context).size,
-                  action: actionChangeTab,
+                  fromIndex: tabFromIndex,
+                  toIndex: tabToIndex,
                 ),
                 new SearchWidget(),
                 new Container(
@@ -156,7 +160,7 @@ class WhichStateScreen extends State<WhichScreen> {
               ],
             ),
           ),
-          new NextButtonWidget(),
+          new NextButtonWidget(nextTabFunction),
         ],
       ),
     );
@@ -379,6 +383,10 @@ class TopDownStateWidget extends State<TopDownWidget>
 }
 
 class NextButtonWidget extends StatefulWidget {
+  final Function nextTabFunction;
+
+  NextButtonWidget(this.nextTabFunction);
+
   @override
   State<StatefulWidget> createState() {
     return new NextButtonStateWidget();
@@ -438,14 +446,13 @@ class NextButtonStateWidget extends State<NextButtonWidget>
       child: new Container(
         child: new GestureDetector(
           onTap: () {
-            print('tap');
-            setState(() {});
-//            Navigator.push(
-//              context,
-//              new MaterialPageRoute(
-//                builder: (context) => new HowScreen(),
-//              ),
-//            );
+            widget.nextTabFunction();
+            Navigator.push(
+              context,
+              new MaterialPageRoute(
+                builder: (context) => new HowScreen(),
+              ),
+            );
           },
           child: new Container(
             alignment: Alignment.center,
