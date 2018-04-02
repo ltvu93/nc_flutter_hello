@@ -3,6 +3,10 @@ import 'tab_indicator.dart';
 import 'app_bar_title_anim.dart';
 
 class HowScreen extends StatefulWidget {
+  final Function onBack;
+
+  HowScreen(this.onBack);
+
   @override
   State<StatefulWidget> createState() {
     return new HowStateScreen();
@@ -20,6 +24,7 @@ class HowStateScreen extends State<HowScreen> {
         leading: new IconButton(
             icon: new Image.asset('images/back_icon.png'),
             onPressed: () {
+              widget.onBack(1);
               Navigator.pop(context);
             }),
       ),

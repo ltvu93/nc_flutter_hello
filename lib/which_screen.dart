@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'how_screen.dart';
 import 'tab_indicator.dart';
+import 'app_page_route.dart';
 import 'app_bar_title_anim.dart';
 
 class WhichScreen extends StatefulWidget {
@@ -16,6 +17,28 @@ class WhichScreen extends StatefulWidget {
 }
 
 class WhichStateScreen extends State<WhichScreen> {
+  int fromTabIndex = 0;
+  int toTabIndex = 0;
+
+  void onResume(int fromTab) {
+    setState(() {
+      fromTabIndex = fromTab;
+      toTabIndex = 0;
+    });
+    print(this.fromTabIndex);
+    print(this.toTabIndex);
+  }
+
+  void onNext() {
+    setState(() {
+      fromTabIndex = 0;
+      toTabIndex = 1;
+    });
+
+    print(this.fromTabIndex);
+    print(this.toTabIndex);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -36,8 +59,8 @@ class WhichStateScreen extends State<WhichScreen> {
               children: <Widget>[
                 new TabIndicator(
                   screenSize: MediaQuery.of(context).size,
-                  fromIndex: 0,
-                  toIndex: 0,
+                  fromIndex: fromTabIndex,
+                  toIndex: toTabIndex,
                 ),
                 new SearchWidget(),
                 new Container(
@@ -148,7 +171,7 @@ class WhichStateScreen extends State<WhichScreen> {
               ],
             ),
           ),
-          new NextButtonWidget(),
+          new NextButtonWidget(onResume, onNext),
         ],
       ),
     );
@@ -380,6 +403,11 @@ class TopDownStateWidget extends State<TopDownWidget>
 }
 
 class NextButtonWidget extends StatefulWidget {
+  final Function onResume;
+  final Function onNext;
+
+  NextButtonWidget(this.onResume, this.onNext);
+
   @override
   State<StatefulWidget> createState() {
     return new NextButtonStateWidget();
@@ -440,7 +468,12 @@ class NextButtonStateWidget extends State<NextButtonWidget>
         color: const Color(0xffe04d25),
         child: new InkWell(
           onTap: () {
-            Navigator.pushNamed(context, '/how_screen');
+            widget.onNext();
+            Navigator.of(context).push(
+                  new AppPageRoute(
+                    builder: (_) => new HowScreen(widget.onResume),
+                  ),
+                );
           },
           child: new Container(
             alignment: Alignment.center,

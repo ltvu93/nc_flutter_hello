@@ -40,20 +40,12 @@ class _TabIndicatorState extends State<TabIndicator>
     section = screenSize.width / 8;
     horizontalPadding = section - iconSize / 2;
 
-    animationController = new AnimationController(
-      duration: new Duration(milliseconds: 700),
-      vsync: this,
-    );
     setUpAnimation(0, 1);
-    animationController
-      ..addListener(() {
-        setState(() {});
-      });
   }
 
   @override
   void dispose() {
-    animationController.dispose();
+    if (animationController != null) animationController.dispose();
     super.dispose();
   }
 
@@ -62,9 +54,11 @@ class _TabIndicatorState extends State<TabIndicator>
     super.didUpdateWidget(oldWidget);
     if (oldWidget.fromIndex != widget.fromIndex ||
         oldWidget.toIndex != widget.toIndex) {
+      print(widget.fromIndex);
+      print(widget.toIndex);
       setUpAnimation(widget.fromIndex, widget.toIndex);
     }
-    if(widget.fromIndex < widget.toIndex) {
+    if (widget.fromIndex != widget.toIndex) {
       actionAnim();
     }
   }
@@ -90,10 +84,15 @@ class _TabIndicatorState extends State<TabIndicator>
   }
 
   void actionAnim() {
-    animationController.forward();
+    if (animationController != null) animationController.forward();
   }
 
   void setUpAnimation(int fromIndex, int toIndex) {
+    animationController = new AnimationController(
+      duration: new Duration(milliseconds: 1000),
+      vsync: this,
+    );
+
     dxTargetAnim = new Tween<double>(
             begin: section * (fromIndex * 2 + 1),
             end: section * (toIndex * 2 + 1))
@@ -102,6 +101,11 @@ class _TabIndicatorState extends State<TabIndicator>
             begin: section * (fromIndex * 2 + 1),
             end: section * (toIndex * 2 + 1))
         .animate(intervalCurved(0.5, 1.0));
+
+    animationController
+      ..addListener(() {
+        setState(() {});
+      });
   }
 
   CurvedAnimation intervalCurved(begin, end, [curve = Curves.easeInOut]) {
@@ -177,8 +181,9 @@ class _TabIndicationPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Offset entry = new Offset(dxEntry, dy);
-    Offset target = new Offset(dxTarget, dy);
+    bool left2right = dxEntry < dxTarget;
+    Offset entry = new Offset(left2right ? dxEntry : dxTarget, dy);
+    Offset target = new Offset(left2right ? dxTarget : dxEntry, dy);
 
     Path path = new Path();
     path.addArc(

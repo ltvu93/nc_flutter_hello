@@ -10,6 +10,7 @@ import 'how_screen.dart';
 import 'display_anim.dart';
 import 'searchbar_anim.dart';
 import 'tab_indicator.dart';
+import 'app_page_route.dart';
 
 void main() => runApp(new MainApp());
 
@@ -27,11 +28,6 @@ class MainApp extends StatelessWidget {
           case '/':
             return new AppPageRoute(
               builder: (_) => new HomeScreen(),
-              settings: settings,
-            );
-          case '/how_screen':
-            return new AppPageRoute(
-              builder: (_) => new HowScreen(),
               settings: settings,
             );
         }
@@ -60,8 +56,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       duration: new Duration(milliseconds: 3000),
     );
     animation = new Tween(begin: 0.0, end: 1.0).animate(
-      new CurvedAnimation(
-          parent: animationController, curve: Curves.bounceIn),
+      new CurvedAnimation(parent: animationController, curve: Curves.bounceIn),
     );
     animationController.forward();
 
@@ -102,22 +97,6 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           ],
         ),
       ),
-    );
-  }
-}
-
-class AppPageRoute extends MaterialPageRoute<Null> {
-  AppPageRoute(
-      {WidgetBuilder builder, RouteSettings settings: const RouteSettings()})
-      : super(builder: builder, settings: settings);
-
-  @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation, Widget child) {
-    if (settings.isInitialRoute) return child;
-    return new FadeTransition(
-      opacity: animation,
-      child: child,
     );
   }
 }
