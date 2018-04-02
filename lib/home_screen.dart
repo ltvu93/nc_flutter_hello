@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'which_screen.dart';
+import 'main.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -9,7 +10,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -46,7 +46,7 @@ class HomeScreenState extends State<HomeScreen> {
         borderRadius: const BorderRadius.all(const Radius.circular(2.7)),
       ),
       margin:
-      const EdgeInsets.only(left: 9.7, right: 9.7, top: 8.4, bottom: 16.7),
+          const EdgeInsets.only(left: 9.7, right: 9.7, top: 8.4, bottom: 16.7),
       child: new Row(
         children: <Widget>[
           new IconButton(
@@ -94,24 +94,32 @@ class HomeScreenState extends State<HomeScreen> {
             ),
           ),
           new Container(
+            alignment: Alignment.center,
             height: 188.3,
             child: new ListView(
               scrollDirection: Axis.horizontal,
               children: new List.generate(10, (int index) {
-                return new IconButton(
-                    iconSize: 155.3,
-                    padding: const EdgeInsets.all(0.0),
-                    icon: new Image.asset(
-                      'images/item_bg.png',
+                return new Hero(
+                  tag: 'item-$index',
+                  child: new Material(
+                    color: Colors.transparent,
+                    child: new IconButton(
+                      iconSize: 155.3,
+                      padding: const EdgeInsets.all(0.0),
+                      icon: new Image.asset(
+                        'images/item_bg.png',
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          new AppPageRoute(
+                            builder: (context) => new WhichScreen(index),
+                          ),
+                        );
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                          builder: (context) => new WhichScreen(),
-                        ),
-                      );
-                    });
+                  ),
+                );
               }),
             ),
           ),

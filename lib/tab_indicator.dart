@@ -41,7 +41,7 @@ class _TabIndicatorState extends State<TabIndicator>
     horizontalPadding = section - iconSize / 2;
 
     animationController = new AnimationController(
-      duration: new Duration(milliseconds: 1000),
+      duration: new Duration(milliseconds: 700),
       vsync: this,
     );
     setUpAnimation(0, 1);
@@ -64,7 +64,9 @@ class _TabIndicatorState extends State<TabIndicator>
         oldWidget.toIndex != widget.toIndex) {
       setUpAnimation(widget.fromIndex, widget.toIndex);
     }
-    actionAnim();
+    if(widget.fromIndex < widget.toIndex) {
+      actionAnim();
+    }
   }
 
   @override
@@ -180,11 +182,11 @@ class _TabIndicationPainter extends CustomPainter {
 
     Path path = new Path();
     path.addArc(
-        new Rect.fromCircle(center: entry, radius: radius), 0.5 * PI, 1 * PI);
+        new Rect.fromCircle(center: entry, radius: radius), 0.5 * pi, 1 * pi);
     path.addRect(
         new Rect.fromLTRB(entry.dx, dy - radius, target.dx, dy + radius));
     path.addArc(
-        new Rect.fromCircle(center: target, radius: radius), 1.5 * PI, 1 * PI);
+        new Rect.fromCircle(center: target, radius: radius), 1.5 * pi, 1 * pi);
     canvas.drawPath(path, painter);
   }
 

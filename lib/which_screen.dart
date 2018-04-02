@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'request_indicator.dart';
 import 'how_screen.dart';
-import 'display_anim.dart';
 import 'tab_indicator.dart';
 
 class WhichScreen extends StatefulWidget {
+  final int itemIndex;
+
+  WhichScreen(this.itemIndex);
+
   @override
   State<StatefulWidget> createState() {
     return new WhichStateScreen();
@@ -13,16 +15,6 @@ class WhichScreen extends StatefulWidget {
 }
 
 class WhichStateScreen extends State<WhichScreen> {
-  int tabFromIndex = 0;
-  int tabToIndex = 1;
-
-  void nextTabFunction() {
-    setState(() {
-      tabFromIndex = 0;
-      tabToIndex = 1;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -43,8 +35,8 @@ class WhichStateScreen extends State<WhichScreen> {
               children: <Widget>[
                 new TabIndicator(
                   screenSize: MediaQuery.of(context).size,
-                  fromIndex: tabFromIndex,
-                  toIndex: tabToIndex,
+                  fromIndex: 0,
+                  toIndex: 0,
                 ),
                 new SearchWidget(),
                 new Container(
@@ -62,7 +54,7 @@ class WhichStateScreen extends State<WhichScreen> {
                           ),
                         ),
                       ),
-                      new ShoeWidget(),
+                      new ShoeWidget(widget.itemIndex),
                       new BottomUpWidget(
                         child: new Container(
                           padding: const EdgeInsets.only(
@@ -155,7 +147,7 @@ class WhichStateScreen extends State<WhichScreen> {
               ],
             ),
           ),
-          new NextButtonWidget(nextTabFunction),
+          new NextButtonWidget(),
         ],
       ),
     );
@@ -163,6 +155,10 @@ class WhichStateScreen extends State<WhichScreen> {
 }
 
 class ShoeWidget extends StatefulWidget {
+  final int itemIndex;
+
+  ShoeWidget(this.itemIndex);
+
   @override
   State<StatefulWidget> createState() {
     return new ShoeStateWidget();
@@ -211,12 +207,17 @@ class ShoeStateWidget extends State<ShoeWidget> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      padding: new EdgeInsets.only(top: animation.value, left: 0.0, right: 0.0),
-      child: new Image.asset(
-        'images/shoe_pic.png',
+    return new Hero(
+      tag: 'item-${widget.itemIndex}',
+      child: new Container(
         height: 257.9,
-        fit: BoxFit.fill,
+        width: MediaQuery.of(context).size.width,
+        padding:
+            new EdgeInsets.only(top: animation.value, left: 9.7, right: 9.7),
+        child: new Image.asset(
+          'images/shoe_pic.png',
+          fit: BoxFit.fill,
+        ),
       ),
     );
   }
@@ -378,10 +379,6 @@ class TopDownStateWidget extends State<TopDownWidget>
 }
 
 class NextButtonWidget extends StatefulWidget {
-  final Function nextTabFunction;
-
-  NextButtonWidget(this.nextTabFunction);
-
   @override
   State<StatefulWidget> createState() {
     return new NextButtonStateWidget();
@@ -442,13 +439,7 @@ class NextButtonStateWidget extends State<NextButtonWidget>
         color: const Color(0xffe04d25),
         child: new InkWell(
           onTap: () {
-            widget.nextTabFunction();
-//            Navigator.push(
-//              context,
-//              new MaterialPageRoute(
-//                builder: (context) => new HowScreen(),
-//              ),
-//            );
+            Navigator.pushNamed(context, '/how_screen');
           },
           child: new Container(
             alignment: Alignment.center,

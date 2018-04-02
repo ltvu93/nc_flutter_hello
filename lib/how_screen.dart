@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'request_indicator.dart';
+import 'tab_indicator.dart';
 
 class HowScreen extends StatefulWidget {
   @override
@@ -24,7 +24,11 @@ class HowStateScreen extends State<HowScreen> {
       ),
       body: new Column(
         children: <Widget>[
-          new RequestIndicatorWidget(),
+          new TabIndicator(
+            screenSize: MediaQuery.of(context).size,
+            fromIndex: 0,
+            toIndex: 1,
+          ),
           new Container(
             height: 33.3,
             color: const Color(0xffe04d25),
@@ -43,7 +47,7 @@ class HowStateScreen extends State<HowScreen> {
               child: new Container(
                 height: 78.0,
                 margin: const EdgeInsets.only(
-                    left: 12.3, right: 98.7, top: 23.7, bottom: 27.0),
+                    left: 12.3, right: 98.7, top: 23.7, bottom: 20.0),
                 child: new Text(
                   'Please choose what service you want to use to purchase and deliver your item',
                   style: new TextStyle(

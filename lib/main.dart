@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:async';
 import 'dart:core';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,22 @@ class MainApp extends StatelessWidget {
         primaryColor: new Color(0xffee613a),
         accentColor: new Color(0xffe04d25),
       ),
-      home: new WhichScreen(),
+      home: new HomeScreen(),
+      onGenerateRoute: (RouteSettings settings) {
+        switch (settings.name) {
+          case '/':
+            return new AppPageRoute(
+              builder: (_) => new HomeScreen(),
+              settings: settings,
+            );
+          case '/how_screen':
+            return new AppPageRoute(
+              builder: (_) => new HowScreen(),
+              settings: settings,
+            );
+        }
+        assert(false);
+      },
     );
   }
 }
@@ -32,7 +48,26 @@ class MainScreen extends StatefulWidget {
   }
 }
 
-class MainScreenState extends State<MainScreen> {
+class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
+  AnimationController animationController;
+  Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = new AnimationController(
+      vsync: this,
+      duration: new Duration(milliseconds: 3000),
+    );
+    animation = new Tween(begin: 0.0, end: 1.0).animate(
+      new CurvedAnimation(
+          parent: animationController, curve: Curves.bounceIn),
+    );
+    animationController.forward();
+
+    new Timer(new Duration(seconds: 2), () {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -56,9 +91,33 @@ class MainScreenState extends State<MainScreen> {
               height: 100.0,
               color: Colors.green,
             ),
+            new RotationTransition(
+              turns: animation,
+              child: new Container(
+                height: 100.0,
+                width: 100.0,
+                color: Colors.amber,
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class AppPageRoute extends MaterialPageRoute<Null> {
+  AppPageRoute(
+      {WidgetBuilder builder, RouteSettings settings: const RouteSettings()})
+      : super(builder: builder, settings: settings);
+
+  @override
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    if (settings.isInitialRoute) return child;
+    return new FadeTransition(
+      opacity: animation,
+      child: child,
     );
   }
 }
