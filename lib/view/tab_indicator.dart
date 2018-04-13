@@ -52,12 +52,10 @@ class _TabIndicatorState extends State<TabIndicator>
   @override
   void didUpdateWidget(TabIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
+
     if (oldWidget.fromIndex != widget.fromIndex ||
         oldWidget.toIndex != widget.toIndex) {
       setUpAnimation(widget.fromIndex, widget.toIndex);
-    }
-    if (widget.fromIndex != widget.toIndex) {
-      actionAnim();
     }
   }
 
@@ -81,10 +79,6 @@ class _TabIndicatorState extends State<TabIndicator>
     );
   }
 
-  void actionAnim() {
-    if (animationController != null) animationController.forward();
-  }
-
   void setUpAnimation(int fromIndex, int toIndex) {
     animationController = new AnimationController(
       duration: new Duration(milliseconds: 700),
@@ -104,6 +98,10 @@ class _TabIndicatorState extends State<TabIndicator>
       ..addListener(() {
         setState(() {});
       });
+
+    if (fromIndex != toIndex) {
+      animationController.forward();
+    }
   }
 
   CurvedAnimation intervalCurved(
